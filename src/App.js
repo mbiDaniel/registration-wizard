@@ -25,26 +25,32 @@ import {
 
 function App() {
   const tabs = [Profile, Business, AdditionalUsers];
-  const toast = useToast()
+  const toast = useToast();
   const [state, dispatch] = useDispatch();
-  const { Component, canNext, canPrev, next, prev, currentIndex } = useTab(
-    tabs,
-    0
-  );
+  
+  const { Component, canNext, canPrev, next, prev, currentIndex } = useTab(tabs);
 
   function handleSubmit(values) {
-    toast({title: "Check your console", status: "success"})
+    toast({ title: "Check your console", status: "success" });
     console.log(values);
   }
 
   const formik = useFormik({
     initialValues: getValues(currentIndex, state),
-    
+
     validationSchema: getValidationSchema(currentIndex),
     validateOnBlur: true,
     validateOnChange: true,
     onSubmit: (e) =>
-      dispatchState(currentIndex, e, dispatch, next, state, handleSubmit, formik),
+      dispatchState(
+        currentIndex,
+        e,
+        dispatch,
+        next,
+        state,
+        handleSubmit,
+        formik
+      ),
   });
 
   return (
@@ -58,12 +64,18 @@ function App() {
         roundedBottom="30%"
       />
       <Box w="full" maxW="7xl" mx="auto" py="10" pos="relative">
-        <HStack flexDir={{base: "column-reverse", md: "row"}} justifyContent="space-between" w="full">
+        <HStack
+          flexDir={{ base: "column-reverse", md: "row" }}
+          justifyContent="space-between"
+          w="full"
+        >
           <Text visibility="hidden">Contact US</Text>
           <Heading textAlign="center" variant="main">
             Create new account
           </Heading>
-          <Heading fontSize="lg" color="white">Contact US</Heading>
+          <Heading fontSize="lg" color="white">
+            Contact US
+          </Heading>
         </HStack>
         <Spacer h="10" />
         <Card
@@ -99,16 +111,19 @@ function App() {
               />
             </HStack>
           </Box>
-          <Box w={{base: "100%", md: "75%"}} paddingX="20px" mx="auto">
+          <Box w={{ base: "100%", md: "75%" }} paddingX="20px" mx="auto">
             <Component formik={formik} />
           </Box>
         </Card>
         <Spacer h="10" />
-        <HStack flexDir={{base: "column-reverse", md: "row"}} justifyContent="space-between">
+        <HStack
+          flexDir={{ base: "column-reverse", md: "row" }}
+          justifyContent="space-between"
+        >
           <Button size="lg" variant="text">
             <FaChevronLeft /> Back to Login
           </Button>
-          <HStack spacing="6" flexDir={{base: "column-reverse", md: "row"}}>
+          <HStack spacing="6" flexDir={{ base: "column-reverse", md: "row" }}>
             <Button
               w="200px"
               size="lg"
