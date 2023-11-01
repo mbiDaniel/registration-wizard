@@ -2,9 +2,11 @@ pipeline {
     agent any
 
     stages {
-        stage('Build') {
+        stage('Clone Project') {
             steps {
-                echo 'Building..'
+                echo 'Cloning Project..'
+                git branch: 'main', url: 'https://github.com/mbiDaniel/registration-wizard.git'
+                sh 'ls -lrt'
             }
         }
         stage('Test') {
